@@ -95,8 +95,8 @@ public class NacosConfig {
         Properties properties = new Properties();
         properties.put(PropertyKeyConst.SERVER_ADDR, address);
         properties.put(PropertyKeyConst.NAMESPACE, namespace);
-//        properties.put(PropertyKeyConst.USERNAME, username);
-//        properties.put(PropertyKeyConst.PASSWORD, password);
+        properties.put(PropertyKeyConst.USERNAME, username);
+        properties.put(PropertyKeyConst.PASSWORD, password);
         return ConfigFactory.createConfigService(properties);
     }
 }
