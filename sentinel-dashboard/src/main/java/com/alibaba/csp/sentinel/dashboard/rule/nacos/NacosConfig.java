@@ -17,16 +17,19 @@ package com.alibaba.csp.sentinel.dashboard.rule.nacos;
 
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.*;
 import com.alibaba.csp.sentinel.datasource.Converter;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRule;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.nacos.api.PropertyKeyConst;
 import com.alibaba.nacos.api.config.ConfigFactory;
 import com.alibaba.nacos.api.config.ConfigService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 /**
  * @author Eric Zhao
@@ -85,10 +88,25 @@ public class NacosConfig {
     public Converter<List<ParamFlowRuleEntity>, String> paramFlowRuleEntityEncoder() {
         return JSON::toJSONString;
     }
-
     @Bean
     public Converter<String, List<ParamFlowRuleEntity>> paramFlowRuleEntityDecoder() {
         return s -> JSON.parseArray(s, ParamFlowRuleEntity.class);
+    }
+    @Bean
+    public Converter<java.util.List<ParamFlowRuleCorrectEntity>, String> paramFlowRuleCorrectEntityEncoder() {
+        return JSON::toJSONString;
+    }
+    @Bean
+    public Converter<String, java.util.List<ParamFlowRuleCorrectEntity>> paramFlowRuleCorrectEntityDecoder() {
+        return s -> JSON.parseArray(s, ParamFlowRuleCorrectEntity.class);
+    }
+    @Bean
+    public Converter<java.util.List<AuthorityRuleCorrectEntity>, String> authorityRuleCorrectEntityEncoder() {
+        return JSON::toJSONString;
+    }
+    @Bean
+    public Converter<String, java.util.List<AuthorityRuleCorrectEntity>> authorityRuleCorrectEntityDecoder() {
+        return s -> JSON.parseArray(s, AuthorityRuleCorrectEntity.class);
     }
     @Bean
     public ConfigService nacosConfigService() throws Exception {
